@@ -3,6 +3,7 @@ package bhim.project.game;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.media.SoundPool;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -71,4 +72,32 @@ class SnakeView extends SurfaceView implements Runnable {
     // The size in segments of the playable area
     private final int NUM_BLOCKS_WIDE = 40;
     private int m_NumBlocksHigh; // determined dynamically
+
+    public SnakeView(Context context, Point size) {
+        super(context);
+
+        m_context = context;
+
+        m_ScreenWidth = size.x;
+        m_ScreenHeight = size.y;
+
+        //Determine the size of each block/place on the game board
+        m_BlockSize = m_ScreenWidth / NUM_BLOCKS_WIDE;
+        // How many blocks of the same size will fit into the height
+        m_NumBlocksHigh = m_ScreenHeight / m_BlockSize;
+
+        // Set the sound up
+        loadSound();
+
+        // Initialize the drawing objects
+        m_Holder = getHolder();
+        m_Paint = new Paint();
+
+        // If you score 200 you are rewarded with a crash achievement!
+        m_SnakeXs = new int[200];
+        m_SnakeYs = new int[200];
+
+        // Start the game
+        startGame();
+    }
 }
