@@ -100,4 +100,33 @@ class SnakeView extends SurfaceView implements Runnable {
         // Start the game
         startGame();
     }
+    @Override
+    public void run() {
+        // The check for m_Playing prevents a crash at the start
+        // You could also extend the code to provide a pause feature
+        while (m_Playing) {
+
+            // Update 10 times a second
+            if(checkForUpdate()) {
+                updateGame();
+                drawGame();
+            }
+
+        }
+    }
+    public void pause() {
+        m_Playing = false;
+        try {
+            m_Thread.join();
+        } catch (InterruptedException e) {
+            // Error
+        }
+    }
+
+    public void resume() {
+        m_Playing = true;
+        m_Thread = new Thread(this);
+        m_Thread.start();
+    }
+
 }
