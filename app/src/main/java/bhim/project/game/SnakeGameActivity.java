@@ -22,7 +22,7 @@ public class SnakeGameActivity extends AppCompatActivity {
         // Create a new View based on the SnakeView class
         snakeView = new SnakeView(this, size);
     }
-    
+
     @Override
     protected void onResume() {
         super.onResume();
