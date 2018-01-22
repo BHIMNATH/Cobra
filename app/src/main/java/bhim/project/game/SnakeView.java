@@ -128,5 +128,20 @@ class SnakeView extends SurfaceView implements Runnable {
         m_Thread = new Thread(this);
         m_Thread.start();
     }
+    public void startGame() {
+        // Start with just a head, in the middle of the screen
+        m_SnakeLength = 1;
+        m_SnakeXs[0] = NUM_BLOCKS_WIDE / 2;
+        m_SnakeYs[0] = m_NumBlocksHigh / 2;
+
+        // And a mouse to eat
+        spawnMouse();
+
+        // Reset the m_Score
+        m_Score = 0;
+
+        // Setup m_NextFrameTime so an update is triggered immediately
+        m_NextFrameTime = System.currentTimeMillis();
+    }
 
 }
