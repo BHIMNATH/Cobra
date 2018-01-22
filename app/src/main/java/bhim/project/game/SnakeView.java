@@ -12,6 +12,7 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 
 import java.io.IOException;
+import java.util.Random;
 
 /**
  * Created by Aswin on 21-Jan-18.
@@ -166,5 +167,9 @@ class SnakeView extends SurfaceView implements Runnable {
         } catch (IOException e) {
             // Error
         }
-
+        public void spawnMouse() {
+            Random random = new Random();
+            m_MouseX = random.nextInt(NUM_BLOCKS_WIDE - 1) + 1;
+            m_MouseY = random.nextInt(m_NumBlocksHigh - 1) + 1;
+        }
 }
