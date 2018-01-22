@@ -1,12 +1,17 @@
 package bhim.project.game;
 
 import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
+import android.media.AudioManager;
 import android.media.SoundPool;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
+
+import java.io.IOException;
 
 /**
  * Created by Aswin on 21-Jan-18.
@@ -143,5 +148,23 @@ class SnakeView extends SurfaceView implements Runnable {
         // Setup m_NextFrameTime so an update is triggered immediately
         m_NextFrameTime = System.currentTimeMillis();
     }
+    public void loadSound() {
+        m_SoundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
+        try {
+            // Create objects of the 2 required classes
+            // Use m_Context because this is a reference to the Activity
+            AssetManager assetManager = m_context.getAssets();
+            AssetFileDescriptor descriptor;
+
+            // Prepare the two sounds in memory
+            descriptor = assetManager.openFd("get_mouse_sound.ogg");
+            m_get_mouse_sound = m_SoundPool.load(descriptor, 0);
+
+            descriptor = assetManager.openFd("death_sound.ogg");
+            m_dead_sound = m_SoundPool.load(descriptor, 0);
+
+        } catch (IOException e) {
+            // Error
+        }
 
 }
